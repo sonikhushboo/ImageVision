@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Objectdetection</string>
+    <string name="action_settings">Settings</string>
+    //called localisation
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_social">SocialActivity</string>
+    <string name="title_activity_forgot">ForgotActivity</string>
+    <string name="album_name">album_name</string>
+    <string name="title_activity_analysis_">Analysis_Activity</string>
+    <string name="title_activity_feedback">FeedbackActivity</string>
+    <string name="cloud_key">AIzaSyD1PlSQnzT1r0QYeasB29rTMNYFMlt8o3U</string>
+    <string name="title_activity_object_detection"></string>
+    <string name="title_activity_text_detection"></string>
+    <string name="title_activity_others"></string>
+</resources>

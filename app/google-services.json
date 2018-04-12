@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "618358643204",
+    "firebase_url": "https://objectdetection-db905.firebaseio.com",
+    "project_id": "objectdetection-db905",
+    "storage_bucket": "objectdetection-db905.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:618358643204:android:dcf7c0b2e4d0ffb6",
+        "android_client_info": {
+          "package_name": "com.digipodium.khushboo.imagevision"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "618358643204-to4ghscu60nb3i6cq8j7585tlcc2m13d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.digipodium.khushboo.imagevision",
+            "certificate_hash": "61b10248e6617959806f0cc22adace462438a25c"
+          }
+        },
+        {
+          "client_id": "618358643204-diak71st0j73hbv88o2u7vo8tb2k0hmr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1PlSQnzT1r0QYeasB29rTMNYFMlt8o3U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "618358643204-diak71st0j73hbv88o2u7vo8tb2k0hmr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
