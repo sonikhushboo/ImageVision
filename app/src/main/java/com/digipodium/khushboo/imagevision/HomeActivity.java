@@ -282,6 +282,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 try {
                     mCamera.setPreviewDisplay(mHolder);
+
                     mCamera.startPreview();
 
                 } catch (Exception e) {

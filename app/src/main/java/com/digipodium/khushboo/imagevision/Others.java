@@ -30,6 +30,7 @@ import com.google.api.services.vision.v1.model.AnnotateImageRequest;
 import com.google.api.services.vision.v1.model.BatchAnnotateImagesRequest;
 import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
 import com.google.api.services.vision.v1.model.EntityAnnotation;
+import com.google.api.services.vision.v1.model.FaceAnnotation;
 import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
 
@@ -148,8 +149,13 @@ public class Others extends AppCompatActivity {
                                 Feature logo_detection = new Feature();
                                 logo_detection.setType("LOGO_DETECTION");
                                 logo_detection.setMaxResults(15);
+                                Feature face_detection = new Feature();
+                                face_detection.setType("FACE_DETECTION");
+                                face_detection.setMaxResults(15);
+
                                 add(landmark_detection);
                                 add(logo_detection);
+                                add(face_detection);
                             }});
                             add(annotateImageRequest);
                         }
@@ -186,7 +192,7 @@ public class Others extends AppCompatActivity {
         }.execute();
     }
 
-    private String convertResponseToString(BatchAnnotateImagesResponse response) {
+    private String convertResponseToString(BatchAnnotateImagesResponse response) throws IOException {
         StringBuilder message = new StringBuilder("Results:\n\n");
         message.append("Logo Detected \n\n -----------------\n");
         List<EntityAnnotation> logos = response.getResponses().get(0).getLogoAnnotations();
@@ -213,6 +219,18 @@ public class Others extends AppCompatActivity {
             message.append("nothing found\n");
         }
 
+
+        message.append("\nFaces detected:\n\n -----------------\n");
+        List<FaceAnnotation> faces = response.getResponses().get(0)
+                .getFaceAnnotations();
+        if (faces != null) {
+            for (FaceAnnotation face : faces) {
+                message.append(face.toPrettyString());
+                message.append("\n");
+            }
+        } else {
+            message.append("nothing found\n");
+        }
         return message.toString();
     }
 
