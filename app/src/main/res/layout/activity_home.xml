@@ -39,12 +39,12 @@
 
     <ImageView
         android:id="@+id/thumbview"
-        android:layout_width="77dp"
-        android:layout_height="76dp"
+        android:layout_width="63dp"
+        android:layout_height="54dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:src="@color/background"
+        android:src="@color/Dark_Red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btcamera"
         app:layout_constraintStart_toStartOf="parent"

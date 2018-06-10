@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/cover"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".AnalysisActivity"
     tools:layout_editor_absoluteY="25dp"
@@ -46,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bt_login"
                 android:text="Text Detection"
+                android:textColor="@color/common_google_signin_btn_text_dark_default"
                 tools:layout_editor_absoluteX="148dp"
                 tools:layout_editor_absoluteY="275dp" />
 
@@ -55,6 +57,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bt_login"
                 android:text="Object Detection"
+                android:textColor="@color/common_google_signin_btn_text_dark_default"
                 tools:layout_editor_absoluteX="148dp"
                 tools:layout_editor_absoluteY="275dp" />
 
@@ -64,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bt_login"
                 android:text="Others"
+                android:textColor="@color/common_google_signin_btn_text_dark_default"
                 tools:layout_editor_absoluteX="148dp"
                 tools:layout_editor_absoluteY="275dp" />
 
@@ -73,6 +77,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bt_login"
                 android:text="rating"
+                android:textColor="@color/common_google_signin_btn_text_dark_default"
                 tools:layout_editor_absoluteX="148dp"
                 tools:layout_editor_absoluteY="275dp" />
 

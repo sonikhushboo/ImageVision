@@ -61,7 +61,7 @@ public class FeedbackActivity extends AppCompatActivity {
                     return;
                 }
                 String message="User rating:"+rating+"\n"+feedbck.getText().toString();
-             composeEmail(new String[]{"khushisoni1615@gmail.com"},"feedback",message);
+             composeEmail(new String[]{"sonikhushboo1615@gmail.com"},"feedback",message);
             }
         });
 

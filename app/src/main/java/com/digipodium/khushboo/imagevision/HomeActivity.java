@@ -87,8 +87,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        // Create an instance of Camera
-        handleCameraPermission();
 
     }
 
@@ -116,25 +114,6 @@ public class HomeActivity extends AppCompatActivity {
             mAlbumStorageDirFactory = new BaseAlbumDirFactory();
         }
     }
-
-    /*private void dispatchTakePictureIntent(int actionCode) {
-
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        File f = null;
-
-        try {
-            f = setUpPhotoFile();
-            mCurrentPhotoPath = f.getAbsolutePath();
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-        } catch (IOException e) {
-            e.printStackTrace();
-            f = null;
-            mCurrentPhotoPath = null;
-        }
-        startActivityForResult(takePictureIntent, actionCode);
-    }*/
-
 
     private void galleryAddPic() {
         Intent mediaScanIntent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
@@ -235,8 +214,12 @@ public class HomeActivity extends AppCompatActivity {
         public void surfaceCreated(SurfaceHolder holder) {
             // The Surface has been created, now tell the camera where to draw the preview.
             try {
-                mCamera.setPreviewDisplay(holder);
-                mCamera.startPreview();
+                if (mCamera != null) {
+                    mCamera.setPreviewDisplay(holder);
+                    mCamera.startPreview();
+                } else {
+                    Toast.makeText(HomeActivity.this, "camera not active", Toast.LENGTH_SHORT).show();
+                }
             } catch (IOException e) {
 
             }
@@ -269,37 +252,41 @@ public class HomeActivity extends AppCompatActivity {
 
             // start preview with new settings
 
-            Camera.Parameters parameters = mCamera.getParameters();
-            Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
-
-            if (display.getRotation() == Surface.ROTATION_0) {
-                parameters.setPreviewSize(height, width);
-                mCamera.setDisplayOrientation(90);
-            }
-
-            if (display.getRotation() == Surface.ROTATION_90) {
-                parameters.setPreviewSize(width, height);
-            }
-
-            if (display.getRotation() == Surface.ROTATION_180) {
-                parameters.setPreviewSize(width, height);
-            }
-
-            if (display.getRotation() == Surface.ROTATION_270) {
-                parameters.setPreviewSize(width, height);
-                mCamera.setDisplayOrientation(180);
-            }
             try {
-                mCamera.setParameters(parameters);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            previewCamera();
+                Camera.Parameters parameters = mCamera.getParameters();
+                Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
 
-            try {
-                mCamera.setPreviewDisplay(mHolder);
-                mCamera.startPreview();
+                if (display.getRotation() == Surface.ROTATION_0) {
+                    parameters.setPreviewSize(height, width);
+                    mCamera.setDisplayOrientation(90);
+                }
 
+                if (display.getRotation() == Surface.ROTATION_90) {
+                    parameters.setPreviewSize(width, height);
+                }
+
+                if (display.getRotation() == Surface.ROTATION_180) {
+                    parameters.setPreviewSize(width, height);
+                }
+
+                if (display.getRotation() == Surface.ROTATION_270) {
+                    parameters.setPreviewSize(width, height);
+                    mCamera.setDisplayOrientation(180);
+                }
+                try {
+                    mCamera.setParameters(parameters);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                previewCamera();
+
+                try {
+                    mCamera.setPreviewDisplay(mHolder);
+                    mCamera.startPreview();
+
+                } catch (Exception e) {
+
+                }
             } catch (Exception e) {
 
             }
@@ -421,4 +408,10 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Create an instance of Camera
+        handleCameraPermission();
+    }
 }

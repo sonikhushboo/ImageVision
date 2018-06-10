@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
     //called localisation
     <string name="title_activity_register">RegisterActivity</string>
-    <string name="title_activity_social">SocialActivity</string>
+    <string name="title_activity_social">SocialActiv ity</string>
     <string name="title_activity_forgot">ForgotActivity</string>
     <string name="album_name">album_name</string>
     <string name="title_activity_analysis_">Analysis_Activity</string>

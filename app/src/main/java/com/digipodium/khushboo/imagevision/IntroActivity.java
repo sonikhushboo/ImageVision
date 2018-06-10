@@ -30,7 +30,7 @@ public class IntroActivity extends WelcomeActivity {
                 .defaultBackgroundColor(R.color.colorPrimary)
                 .page(new TitlePage(R.drawable.first,
                         "IMAGE VISION")
-                        .background(R.color.background)
+                        .background(R.color.DarkRed)
                 )
                 .page(new BasicPage(R.drawable.third,
                         "TEXT RECOGNITION",
@@ -39,12 +39,12 @@ public class IntroActivity extends WelcomeActivity {
                                 "\n" +
                                 "It is the mechanical orelectronic conversion of images of typed,handwritten or printed text into machine-encoded text,whether from scanned document,a photo of a document,a scene-photo or from subtitle text superimposed on an image")
 
-                        .background(R.color.background)
+                        .background(R.color.DarkRed)
                 )
                 .page(new BasicPage(R.drawable.second,
                         "BAR CODE DETCTION",
                         "It is scanner")
-                        .background(R.color.background)
+                        .background(R.color.DarkRed)
 
                 )
                 .swipeToDismiss(true)

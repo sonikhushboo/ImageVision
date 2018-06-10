@@ -51,7 +51,7 @@ public class AnalysisActivity extends AppCompatActivity {
     static final int REQUEST_PERMISSIONS = 13;
     static final int REQUEST_CODE_PICK_ACCOUNT = 11;
     static final int REQUEST_ACCOUNT_AUTHORIZATION = 12;
-    private static final String CLOUD_VISION_API_KEY = "AIzaSyArIM61-lz4BM1bmJK2VZs8WXLLvUQxlB4";
+    private static final String CLOUD_VISION_API_KEY = "AIzaSyD1PlSQnzT1r0QYeasB29rTMNYFMlt8o3U";
 
     private static final String ANDROID_CERT_HEADER = "X-Android-Cert";
     private static final String ANDROID_PACKAGE_HEADER = "X-Android-Package";
@@ -242,75 +242,7 @@ public class AnalysisActivity extends AppCompatActivity {
 
     }
 
-    /*private void callCloudVision(final Bitmap bitmap) throws IOException {
-        resultTextView.setText("Retrieving results from cloud");
 
-        new AsyncTask<Object, Void, String>() {
-            @Override
-            protected String doInBackground(Object... params) {
-                try {
-
-
-                    GoogleCredential credential = new GoogleCredential().setAccessToken(accessToken);
-                    HttpTransport httpTransport = AndroidHttp.newCompatibleTransport();
-                    JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
-
-                    Vision.Builder builder = new Vision.Builder
-                            (httpTransport, jsonFactory, credential);
-                    Vision vision = builder.build();
-
-                    List<Feature> featureList = new ArrayList<>();
-                    Feature labelDetection = new Feature();
-                    labelDetection.setType("LABEL_DETECTION");
-                    labelDetection.setMaxResults(10);
-                    featureList.add(labelDetection);
-
-                    Feature textDetection = new Feature();
-                    textDetection.setType("TEXT_DETECTION");
-                    textDetection.setMaxResults(10);
-                    featureList.add(textDetection);
-
-                    Feature landmarkDetection = new Feature();
-                    landmarkDetection.setType("LANDMARK_DETECTION");
-                    landmarkDetection.setMaxResults(10);
-                    featureList.add(landmarkDetection);
-
-                    List<AnnotateImageRequest> imageList = new ArrayList<>();
-                    AnnotateImageRequest annotateImageRequest = new AnnotateImageRequest();
-                    Image base64EncodedImage = getBase64EncodedJpeg(bitmap);
-                    annotateImageRequest.setImage(base64EncodedImage);
-                    annotateImageRequest.setFeatures(featureList);
-                    imageList.add(annotateImageRequest);
-
-                    BatchAnnotateImagesRequest batchAnnotateImagesRequest =
-                            new BatchAnnotateImagesRequest();
-                    batchAnnotateImagesRequest.setRequests(imageList);
-
-                    Vision.Images.Annotate annotateRequest =
-                            vision.images().annotate(batchAnnotateImagesRequest);
-                    // Due to a bug: requests to Vision API containing large images fail when GZipped.
-                    annotateRequest.setDisableGZipContent(true);
-                    Log.d(LOG_TAG, "sending request");
-
-                    BatchAnnotateImagesResponse response = annotateRequest.execute();
-                    String data = convertResponseToString(response);
-
-                    return data;
-
-                } catch (GoogleJsonResponseException e) {
-                    Log.e(LOG_TAG, "Request failed: " + e.getContent());
-                } catch (IOException e) {
-                    Log.d(LOG_TAG, "Request failed: " + e.getMessage());
-                }finally {
-                    return "Cloud Vision API request failed.";
-                }
-            }
-
-            protected void onPostExecute(String result) {
-                resultTextView.setText(result);
-            }
-        }.execute();
-    }*/
 
     private void callCloudVision(final Bitmap bitmap) throws IOException {
         // TODO: 10-10-2017 Add a progress dialog
