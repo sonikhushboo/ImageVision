@@ -52,15 +52,15 @@ public class Others extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_others);
-        otherresult=(TextView)findViewById(R.id.tvothersresult);
-        selectedImage = findViewById(R.id.imageView);
+        otherresult = (TextView) findViewById(R.id.tvothersresult);
 
-        Intent i= getIntent();
-        if(i.hasExtra("Imagepath")){
+
+        Intent i = getIntent();
+        if (i.hasExtra("Imagepath")) {
             String imagepath = i.getStringExtra("Imagepath");
-            ImageView selectedImage = findViewById(R.id.imviewothers);
+            selectedImage = findViewById(R.id.imviewothers);
             Glide.with(this).load(imagepath).into(selectedImage);
-            iImageUri = Uri.parse("file://"+imagepath);
+            iImageUri = Uri.parse(imagepath);
             uploadImage(iImageUri);
         }
     }
@@ -82,7 +82,7 @@ public class Others extends AppCompatActivity {
     }
 
     public Bitmap resizeBitmap(Bitmap bitmap) {
-        int maxDimension = 1024;
+        int maxDimension = 3024;
         int originalWidth = bitmap.getWidth();
         int originalHeight = bitmap.getHeight();
         int resizedWidth = maxDimension;
@@ -134,19 +134,22 @@ public class Others extends AppCompatActivity {
                             // Convert the bitmap to a JPEG
                             // Just in case it's a format that Android understands but Cloud Vision
                             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
                             byte[] imageBytes = byteArrayOutputStream.toByteArray();
 
                             // Base64 encode the JPEG
                             base64EncodedImage.encodeContent(imageBytes);
                             annotateImageRequest.setImage(base64EncodedImage);
-
                             // add the features we want
                             annotateImageRequest.setFeatures(new ArrayList<Feature>() {{
-                                Feature text_detection = new Feature();
-                                text_detection.setType("TEXT_DETECTION");
-                                text_detection.setMaxResults(15);
-                                add(text_detection);
+                                Feature landmark_detection = new Feature();
+                                landmark_detection.setType("LANDMARK_DETECTION");
+                                landmark_detection.setMaxResults(15);
+                                Feature logo_detection = new Feature();
+                                logo_detection.setType("LOGO_DETECTION");
+                                logo_detection.setMaxResults(15);
+                                add(landmark_detection);
+                                add(logo_detection);
                             }});
                             add(annotateImageRequest);
                         }
@@ -171,12 +174,12 @@ public class Others extends AppCompatActivity {
                     if (dialog.isShowing()) {
                         dialog.dismiss();
                     }*/
-                    try{
+                    try {
                         String data = convertResponseToString((BatchAnnotateImagesResponse) result);
                         otherresult.setText(data);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         Toast.makeText(Others.this, "e", Toast.LENGTH_SHORT).show();
-                        otherresult.setText((String)result);
+                        otherresult.setText((String) result);
                     }
                 }
             }
@@ -185,32 +188,19 @@ public class Others extends AppCompatActivity {
 
     private String convertResponseToString(BatchAnnotateImagesResponse response) {
         StringBuilder message = new StringBuilder("Results:\n\n");
-        message.append("Labels:\n");
-        List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
-        if (labels != null) {
-            for (EntityAnnotation label : labels) {
+        message.append("Logo Detected \n\n -----------------\n");
+        List<EntityAnnotation> logos = response.getResponses().get(0).getLogoAnnotations();
+        if (logos != null) {
+            for (EntityAnnotation label : logos) {
                 message.append(String.format(Locale.getDefault(), "%.3f: %s",
                         label.getScore(), label.getDescription()));
                 message.append("\n");
             }
         } else {
-            message.append("nothing\n");
+            message.append("nothing found\n");
         }
 
-        message.append("Texts:\n");
-        List<EntityAnnotation> texts = response.getResponses().get(0)
-                .getTextAnnotations();
-        if (texts != null) {
-            for (EntityAnnotation text : texts) {
-                message.append(String.format(Locale.getDefault(), "%s: %s",
-                        text.getLocale(), text.getDescription()));
-                message.append("\n");
-            }
-        } else {
-            message.append("nothing\n");
-        }
-
-        message.append("Landmarks:\n");
+        message.append("\nLandmarks detected:\n\n -----------------\n");
         List<EntityAnnotation> landmarks = response.getResponses().get(0)
                 .getLandmarkAnnotations();
         if (landmarks != null) {
@@ -220,7 +210,7 @@ public class Others extends AppCompatActivity {
                 message.append("\n");
             }
         } else {
-            message.append("nothing\n");
+            message.append("nothing found\n");
         }
 
         return message.toString();

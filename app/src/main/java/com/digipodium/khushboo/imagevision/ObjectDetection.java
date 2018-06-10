@@ -53,18 +53,20 @@ public class ObjectDetection extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_object_detection);
-        objectresult=(TextView)findViewById(R.id.tvobjectresult);
-        selectedImage = findViewById(R.id.imageView);
+        objectresult = (TextView) findViewById(R.id.tvobjectresult);
+        selectedImage = findViewById(R.id.imviewobject);
+        ;
 
-        Intent i= getIntent();
-        if(i.hasExtra("Imagepath")){
+        Intent i = getIntent();
+        if (i.hasExtra("Imagepath")) {
             String imagepath = i.getStringExtra("Imagepath");
-            ImageView selectedImage = findViewById(R.id.imviewobject);
+
             Glide.with(this).load(imagepath).into(selectedImage);
-            iImageUri = Uri.parse("file://"+imagepath);
+            iImageUri = Uri.parse(imagepath);
             uploadImage(iImageUri);
         }
     }
+
     public void uploadImage(Uri uri) {
         if (uri != null) {
             mCurrentPhotoPath = uri.toString();
@@ -80,8 +82,9 @@ public class ObjectDetection extends AppCompatActivity {
             Log.e(LOG_TAG, "Null image was returned.");
         }
     }
+
     public Bitmap resizeBitmap(Bitmap bitmap) {
-        int maxDimension = 1024;
+        int maxDimension = 2048;
         int originalWidth = bitmap.getWidth();
         int originalHeight = bitmap.getHeight();
         int resizedWidth = maxDimension;
@@ -100,7 +103,6 @@ public class ObjectDetection extends AppCompatActivity {
         return Bitmap.createScaledBitmap(bitmap, resizedWidth, resizedHeight, false);
 
     }
-
 
 
     private void callCloudVision(final Bitmap bitmap) throws IOException {
@@ -135,7 +137,7 @@ public class ObjectDetection extends AppCompatActivity {
                             // Convert the bitmap to a JPEG
                             // Just in case it's a format that Android understands but Cloud Vision
                             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
                             byte[] imageBytes = byteArrayOutputStream.toByteArray();
 
                             // Base64 encode the JPEG
@@ -172,12 +174,12 @@ public class ObjectDetection extends AppCompatActivity {
                     if (dialog.isShowing()) {
                         dialog.dismiss();
                     }*/
-                    try{
+                    try {
                         String data = convertResponseToString((BatchAnnotateImagesResponse) result);
                         objectresult.setText(data);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         Toast.makeText(ObjectDetection.this, "e", Toast.LENGTH_SHORT).show();
-                        objectresult.setText((String)result);
+                        objectresult.setText((String) result);
                     }
                 }
             }
@@ -190,7 +192,7 @@ public class ObjectDetection extends AppCompatActivity {
         List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
         if (labels != null) {
             for (EntityAnnotation label : labels) {
-                message.append(label.getDescription() +" "+label.getConfidence()+"%");
+                message.append(" "+label.getDescription());
                 message.append("\n");
             }
         } else {

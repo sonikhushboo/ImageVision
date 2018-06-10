@@ -78,7 +78,7 @@ public class TextDetection extends AppCompatActivity {
         }
     }
     public Bitmap resizeBitmap(Bitmap bitmap) {
-        int maxDimension = 1024;
+        int maxDimension = 3048;
         int originalWidth = bitmap.getWidth();
         int originalHeight = bitmap.getHeight();
         int resizedWidth = maxDimension;
@@ -131,7 +131,7 @@ public class TextDetection extends AppCompatActivity {
                             // Convert the bitmap to a JPEG
                             // Just in case it's a format that Android understands but Cloud Vision
                             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
                             byte[] imageBytes = byteArrayOutputStream.toByteArray();
 
                             // Base64 encode the JPEG
